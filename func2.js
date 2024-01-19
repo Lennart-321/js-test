@@ -194,3 +194,67 @@
 // const s1 = "abcd";
 // s1 += "e";
 // console.log(s1);
+
+const parent = {
+    aaa: "AAAA",
+    bbb: "BBBB"
+}
+
+const obj = {
+  "name": "Test object",
+    value: 75,
+    func2() {
+        console.log("func 2 called:" + this.name);
+    },
+    data: { type: "Special", other: "X" },
+    moreData: [1, "two", 3],
+    func: function () {
+        console.log("func called:" + this.value);
+    }
+};
+obj.__proto__ = parent;
+console.log(obj.aaa);
+console.log(obj);
+
+const { name, moreData: [,two], data: { type }, } = obj;
+
+console.log(name);
+console.log(type);
+console.log(two);
+obj["func"]();
+console.log(typeof Object, typeof Object.prototype);
+
+let ent = Object.entries(obj);
+console.log("Object.entries(obj):")
+for (let [k, v] of ent) {
+    console.log("  ",k, v);
+}
+obj.func2();
+
+for (let mk in obj) {
+    console.log(mk);
+}
+
+// const freezd = Object.freeze(obj);
+// console.log(freezd === obj);
+// freezd.name = "NEW NAME";
+// freezd.data.other = "Z";
+// console.log(freezd);
+// console.log(obj);
+
+class Dog {
+    name = "Kalle";
+    lastName = "Andersson"
+    get fullName() {
+        return this.name + " " + this.lastName;
+    }
+    constructor(name) {
+        this.name = name;
+    }
+    bark() {
+        console.log(this.fullName + ": Woff");
+    }
+}
+let dog = new Dog("Vovve");
+dog.bark();
+console.log(dog.fullName);
